@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+
 import AddCustomer from 'src/views/Customers/AddCustomer';
 const style = {
   position: 'absolute' ,
@@ -17,14 +17,31 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
+export default function BasicModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () =>{
+    props.setModelStatus(false);
+    setOpen(false);
+  } 
+
+  React.useEffect(() => {
+
+    if(props.isModelOpen){
+      handleOpen();      
+    }else{
+      handleClose();
+    }
+
+ 
+  }, [props.isModelOpen]);
+
+
+
 
   return (
     <div>
-      <PersonAddAltIcon onClick={handleOpen}></PersonAddAltIcon>
+   
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,7 +49,7 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-           <AddCustomer handleClose={handleClose}  />
+           <AddCustomer handleClose={handleClose} customerToEdit={props.customerToEdit}  />
         </Box>
       </Modal>
     </div>

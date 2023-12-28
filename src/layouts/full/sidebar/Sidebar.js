@@ -1,4 +1,4 @@
-import { useMediaQuery, Box, Drawer } from '@mui/material';
+import { useMediaQuery, Box, Drawer, Fab } from '@mui/material';
 import Logo from '../shared/logo/Logo';
 import SidebarItems from './SidebarItems';
 import { Upgrade } from './Updrade';
@@ -43,7 +43,11 @@ const Sidebar = (props) => {
             {/* Logo */}
             {/* ------------------------------------------- */}
             <Box px={3}>
-              <Logo />
+              {/* <Logo /> */}
+        
+              <Fab color="secondary" size="large" sx={{color: '#ffffff'}}>
+              <h3> R J </h3> 
+        </Fab>
             </Box>
             <Box>
               {/* ------------------------------------------- */}

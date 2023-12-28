@@ -33,12 +33,20 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
       }), 
       invalidatesTags:["customers"]
     }),
+    EditCustomer: builder.mutation({
+      query: (customer) => ({
+        url: `Customers?id=${customer.id}`,    
+        method: "PUT",     
+        body: customer,
+      }), 
+      invalidatesTags:["customers"]
+    }),
     
   }),
 });
 
 //for Get request i.e for query export action method by use + methodname +Query
-export const {useCustomersQuery,useAddCustomerMutation,useDeleteCustomerMutation} = customersApi;
+export const {useCustomersQuery,useAddCustomerMutation,useDeleteCustomerMutation,useEditCustomerMutation} = customersApi;
 export default customersApi;
 
 

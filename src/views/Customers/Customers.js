@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Typography,
   Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Chip,
+  right ,
+  
 } from '@mui/material';
 import DashboardCard from 'src/components/shared/DashboardCard';
-import { useCustomersQuery, useDeleteCustomerMutation } from 'src/api/customersApi';
+import { useCustomersQuery, useDeleteCustomerMutation, useEditCustomerMutation } from 'src/api/customersApi';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetCustomers } from 'src/Redux/slice/CustomerSlice';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import BasicModal from 'src/components/Model';
+import Spinner from 'src/components/Spinner';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 function Customers() {
 
@@ -42,41 +39,61 @@ function Customers() {
     },
     {
       name: 'Actions',
-      cell: (row) => <CustomDeleteButton row={row} />,
+      cell: (row) => <><CustomDeleteButton row={row} /> <CustomEditButton row={row} />   </> ,
     },
   ];
   const CustomDeleteButton = ({ row }) => (
       <DeleteForeverOutlinedIcon onClick={() => handleDelete(row.id)} />    
   );
 
-  
+ 
 
   const dispatch=useDispatch();
-
-  const customers= useSelector((state) => state.customerStore.customers ?? [])
   const { data, isLoading } = useCustomersQuery(null);
-
-
+  const [isModelOpen,setModelStatus]=useState(false);
+  const customers= useSelector((state) => state.customerStore.customers ?? [])
   const [DeleteCustomer] = useDeleteCustomerMutation();
+  const [EditCustomer]=useEditCustomerMutation();
+  const [customerToEdit,SetcustomerToEdit]=useState(null);
+
+
   const handleDelete = async (id) => {
     await DeleteCustomer(id);
     dispatch(SetCustomers(customers.filter(x=>x.id != id)));  
   };
-
+ 
   useEffect(() => {
     if (!isLoading && data) {    
       dispatch(SetCustomers(data));  
     }
-  }, [data, isLoading]);
+  }, [data, isLoading,isModelOpen]);
+
+ 
+  const CustomEditButton = ({ row }) => (
+    <ModeEditIcon onClick={() => handleOpenBox(row.id)} > </ModeEditIcon>  
+);
+
+
+const handleOpenBox=(id)=>{
+  setModelStatus(!isModelOpen);
+  if(id){
+    SetcustomerToEdit(customers.find(x=>x.id==id))
+  }else{
+    SetcustomerToEdit(null);
+  }
+     
+};
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return  <Spinner/>;
   }
 
   return (
     <>
-    <BasicModal/>
-    <DashboardCard title="Customers Contacts">
+       <PersonAddAltIcon onClick={handleOpenBox}></PersonAddAltIcon>
+    <BasicModal  isModelOpen={isModelOpen} customerToEdit={customerToEdit} setModelStatus={setModelStatus} />
+    
+    <DashboardCard title="Customers Contacts"> 
     
       <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
 
