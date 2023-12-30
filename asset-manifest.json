@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/RadhikaJewellers/static/js/main.67d8dd4b.js",
+    "main.js": "/RadhikaJewellers/static/js/main.6130fd3c.js",
     "static/js/970.c8695af5.chunk.js": "/RadhikaJewellers/static/js/970.c8695af5.chunk.js",
     "static/js/339.2e9bea7a.chunk.js": "/RadhikaJewellers/static/js/339.2e9bea7a.chunk.js",
     "static/js/186.1a00c7e2.chunk.js": "/RadhikaJewellers/static/js/186.1a00c7e2.chunk.js",
@@ -38,6 +38,6 @@
     "index.html": "/RadhikaJewellers/index.html"
   },
   "entrypoints": [
-    "static/js/main.67d8dd4b.js"
+    "static/js/main.6130fd3c.js"
   ]
 }
