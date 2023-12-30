@@ -21,21 +21,21 @@ function Customers() {
   const columns = [
     {
       name: 'Name',
-      selector: 'name',
+    selector: 'name',
       //cell: (row) => row['name'],
       sortable: true,
     },
     {
       name: 'Address',
-      selector: 'address',
-     // cell: (row) => row['address'],
+     selector: 'address',
+   //  cell: (row) => row['address'],
       sortable: true,
     },
     {
       name: 'Contact',
-      selector: 'phone',
+     //selector: 'phone',
       cell: (row) => row['phone'],
-      sortable: true,
+    //  sortable: true,
     },
     {
       name: 'Actions',
@@ -53,7 +53,7 @@ function Customers() {
   const [isModelOpen,setModelStatus]=useState(false);
   const customers= useSelector((state) => state.customerStore.customers ?? [])
   const [DeleteCustomer] = useDeleteCustomerMutation();
-  const [EditCustomer]=useEditCustomerMutation();
+
   const [customerToEdit,SetcustomerToEdit]=useState(null);
 
 

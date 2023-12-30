@@ -15,7 +15,7 @@ function App() {
         <CssBaseline />
         {routing}
       </ThemeProvider>
-    </Provider>
+    </Provider> 
   );
 }
 
