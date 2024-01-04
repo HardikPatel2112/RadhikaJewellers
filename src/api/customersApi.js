@@ -4,11 +4,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
  const customersApi = createApi({
   reducerPath: "apiCustomers",
   tagTypes:["customers"],
-  baseQuery: fetchBaseQuery({ baseUrl: "https://rjkapadwanj.bsite.net/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://rjkapadwanj.bsite.net/api/" ,
   prepareHeaders: (headers, api) => {
-    headers.append("Access-Control-Allow-Origin","*");
+    headers.set("Access-Control-Allow-Origin","*");
+    headers.set("accept","text/plain");
+   // headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    headers.append("token",`Bearer ${localStorage.getItem('token')}`);
     return headers;
-  },
+  }
+}),
+
   
   endpoints: (builder) => ({   
     Customers: builder.query({
